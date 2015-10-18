@@ -1,5 +1,5 @@
 <section class="content-header">
-  <h1>Weather dashboard</h1>
+  <h1>Previsão do tempo</h1>
 </section>
 
 <section class="content content-all">
@@ -8,7 +8,7 @@
   </div>
   <div class="box box-default">
     <div class="box-header with-border">
-      <h3 class="box-title">Settings</h3>
+      <h3 class="box-title">Opções</h3>
     </div>
     <div class="box-body">
       <div class="row">
@@ -36,33 +36,59 @@
   </div>
 
   <div class="row">
-    <div class="col-md-12">
-      <div class="row-no-padding">
-        <div class="col-md-2">
-            <div class="box box-weather box-success">
+    <div class="col-xs-12" ng-show="main.forecast">
+      <h1 class="h2">Tempo para: {{ main.forecast.cidade }}</h1>
+      <div class="row-no-padding box-weather-wrapper">
+        <div class="box-weather col-xs-12 col-sm-4">
+            <div class="box box-success">
               <div class="box-header with-border">
-                <h3 class="box-title">{{main.forecast.agora.descricao}}</h2>
+                <h3 class="box-title">{{main.forecast.agora.descricao}}</h3>
                 <p class="box-date">Hoje</p>
               </div>
               <div class="box-body">
-                <img ng-src="{{main.forecast.agora.imagem}}" class="center" alt="">
-                <h2>{{main.forecast.agora.temperatura}} ºC</h2>
+                <img ng-src="{{main.forecast.agora.imagem}}" class="center-block" alt="">
+                <h2 class="temp-now">{{main.forecast.agora.temperatura}} ºC</h2>
+                <div class="max-and-min">
+                  <span class="max-temp">
+                    <i class="glyphicon glyphicon-arrow-up text-red"></i>
+                    {{main.forecast.previsoes[0].temperatura_max}} ºC
+                  </span>
+                  <span class="min-temp">
+                    <i class="glyphicon glyphicon-arrow-down text-light-blue"></i>
+                     {{main.forecast.previsoes[0].temperatura_min}} ºC
+                  </span>
+                </div>
               </div>
             </div>
         </div>
-        <div class="col-md-2" ng-repeat="ft in main.forecast.previsoes">
-            <div class="box box-weather">
+        <div class="box-weather col-xs-6 col-sm-4 col-md-2" ng-repeat="ft in main.forecast.previsoes" ng-if="!$first">
+            <div class="box">
               <div class="box-header with-border">
-                <h3 class="box-title">{{ft.descricao}}</h2>
+                <h3 class="box-title">{{ft.descricao}}</h3>
                 <p class="box-date">{{ft.data}}</p>
               </div>
               <div class="box-body">
                 <img ng-src="{{ft.imagem}}" class="center" alt="">
-                <h3>{{ft.temperatura_max}} ºC</h2>
-                <h3>{{ft.temperatura_min}} ºC</h2>
+                <span class="max-temp">
+                  <i class="glyphicon glyphicon-arrow-up text-red"></i>
+                  {{ft.temperatura_max}} ºC
+                </span>
+                <span class="min-temp">
+                  <i class="glyphicon glyphicon-arrow-down text-light-blue"></i>
+                  {{ft.temperatura_min}} ºC
+                </span>
               </div>
             </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-3">
+      <div class="box">
+        {{main.min}}
+        {{main.max}}
       </div>
     </div>
   </div>

@@ -30,19 +30,38 @@ angular.module('weatherApp')
     }
 
     function getStates() {
-      Weather.states().success(function(data) {
+      Weather.states().then(function(response) {
+        var data = response.data;
         main.states = data.states;
         setState(main.currentState.initials);
-      }).then(function() {
         getInfo();
       });
+      //should threat exceptions with the promise
+
     }
 
     function getInfo(data) {
         Weather.info(main.currentState, main.currentCity)
-          .success(function(data) {
+          .then(function(data) {
             main.forecast = data;
-            console.log(data);
+            getMinMax(data);
+            getWeekend(data);
+          }, function(err) {
+            console.log(err);
           });
+    }
+
+    function getMinMax(data) {
+      main.min = data.previsoes.reduce(function(prev, curr) {
+        return prev.temperatura_min < curr.temperatura_min ? prev : curr;
+      });
+
+      main.max = data.previsoes.reduce(function(prev, curr) {
+        return prev.temperatura_max > curr.temperatura_max ? prev : curr;
+      });
+    }
+
+    function getWeekend(data) {
+
     }
   });
