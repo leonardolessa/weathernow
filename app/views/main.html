@@ -20,8 +20,6 @@
                     <option value="">Selecione o seu estado</option>
             </select>
 
-            {{main.currentState}}
-
             <select chosen
                     ng-model="main.currentCity"
                     ng-options="city as city for city in main.activeState.cities track by city">
@@ -86,7 +84,6 @@
     </div>
   </div>
 
-  {{main.max}}
   <div class="row" ng-show="main.max && main.min">
     <div class="col-xs-12 col-md-4">
       <div class="box">
