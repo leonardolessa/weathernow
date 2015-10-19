@@ -14,27 +14,19 @@ angular.module('weatherApp')
     var defaultCity = localStorageService.get('city') || 'Blumenau';
     var defaultState = localStorageService.get('state') || 'SC';
     var beachAverage = 25;
+    var result;
     var service = {
+      defaultOptions: defaultOptions,
       forecast: forecast,
       states: states,
       minMax: minMax,
       weekend: weekend,
       chart: chart,
-      defaultOptions: defaultOptions,
       toggle: toggle,
       checkData: checkData
     };
-    var result;
 
-    function defaultOptions() {
-      return {
-        city: defaultCity,
-        state: defaultState,
-        remember: localStorageService.length() > 0
-      };
-    }
-
-    function getExternal(state, city) {
+    function _getExternal(state, city) {
       var deferred = $q.defer();
 
       $http.get(extPath + city + '-' + state).then(function(response) {
@@ -51,17 +43,26 @@ angular.module('weatherApp')
       return deferred.promise;
     }
 
-    function getInternal() {
+    function _getInternal() {
         var deferred = $q.defer();
         deferred.resolve(localStorageService.get('resultData'));
         return deferred.promise;
     }
 
+    function defaultOptions() {
+      return {
+        city: defaultCity,
+        state: defaultState,
+        remember: localStorageService.length() > 0
+      };
+    }
+
+
     function forecast(state, city) {
       if (localStorageService.get('city') == city) {
-        return getInternal();
+        return _getInternal();
       }
-      return getExternal(state, city);
+      return _getExternal(state, city);
     }
 
 
@@ -133,7 +134,7 @@ angular.module('weatherApp')
     }
 
     function checkData(location) {
-      return location.city == localStorageService.get('city');
+      return location.city == localStorageService.get('city') && localStorageService.length() > 0;
     }
 
     return service;

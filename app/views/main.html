@@ -26,14 +26,22 @@
                     <option value="">Selecione a sua cidade</option>
             </select>
 
-            <input type="checkbox" ng-model="main.location.remember" ng-value="remember" ng-change="main.toggleStorage(main.location.remember)" /> Lembrar
+            <input type="checkbox" ng-disabled="main.error" ng-model="main.location.remember" ng-value="remember" ng-change="main.toggleStorage(main.location.remember)" /> Lembrar
         </div>
       </div>
 
     </div><!-- /.box-body -->
   </div>
-
-  <div class="row">
+  <div class="row" ng-if="main.error">
+    <div class="col-xs-12">
+      <div class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h4><i class="glyphicon glyphicon-alert"></i> Ops!</h4>
+        {{main.error}}
+      </div>
+    </div>
+  </div>
+  <div class="row" ng-if="!main.error">
     <div class="col-xs-12" ng-show="main.forecast">
       <h1 class="h2">Tempo para: {{ main.forecast.cidade }}</h1>
       <span>Última atualização: {{main.forecast.agora.data_hora}}</span>
@@ -83,7 +91,7 @@
     </div>
   </div>
 
-  <div class="row box-flex">
+  <div class="row box-flex" ng-if="!main.error">
     <div ng-show="main.minMax.max && main.minMax.min" class="col-xs-12 col-md-4">
       <div class="box">
         <div class="box-header with-border">

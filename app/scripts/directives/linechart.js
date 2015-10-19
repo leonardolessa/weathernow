@@ -38,6 +38,7 @@ angular.module('weatherApp')
                           ykeys: scope.lineYkeys,
                           labels: scope.lineLabels,
                           resize: true,
+                          postUnits: 'ºC',
                           lineColors: scope.lineColors || ['#0b62a4', '#7a92a3', '#4da74d', '#afd8f8', '#edc240', '#cb4b4b', '#9440ed'],
                           xLabelFormat: function(date) {
                             return format(date);
@@ -62,7 +63,7 @@ angular.module('weatherApp')
             }
 
             return ("0" + date.getDate()).slice(-2) + '/' + ("0" + (date.getMonth() + 1)).slice(-2);
-            // ugly trick to display day and month with two digits always
+            // ugly trick to always display day and month with two digits
           }
       }
   }

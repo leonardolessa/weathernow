@@ -60,8 +60,11 @@ angular.module('weatherApp')
             main.weekend = Weather.weekend(data.previsoes);
             //get chart widget data
             main.chart = Weather.chart(data.previsoes);
-          }, function(err) {
 
+            main.error = false;
+          }, function(err) {
+            main.error = err;
+            //get error message
           });
     }
 
