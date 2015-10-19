@@ -38,12 +38,13 @@
   <div class="row">
     <div class="col-xs-12" ng-show="main.forecast">
       <h1 class="h2">Tempo para: {{ main.forecast.cidade }}</h1>
+      <span>Última atualização: {{main.forecast.agora.data_hora}}</span>
       <div class="row-no-padding box-weather-wrapper">
         <div class="box-weather col-xs-12 col-sm-4">
             <div class="box box-success">
               <div class="box-header with-border">
                 <h3 class="box-title">{{main.forecast.agora.descricao}}</h3>
-                <p class="box-date">Hoje</p>
+                <p class="box-date">{{main.forecast.previsoes[0].data}}</p>
               </div>
               <div class="box-body">
                 <img ng-src="{{main.forecast.agora.imagem}}" class="center-block" alt="">
@@ -84,8 +85,8 @@
     </div>
   </div>
 
-  <div class="row" ng-show="main.max && main.min">
-    <div class="col-xs-12 col-md-4">
+  <div class="row box-flex">
+    <div ng-show="main.max && main.min" class="col-xs-12 col-md-4">
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">Mínima e Máxima</h3>
@@ -110,6 +111,34 @@
               </span>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-4" ng-if="!main.beach.is && main.beach">
+      <div class="box box-image box-image-home">
+        <div class="box-header with-border">
+          <h3 class="box-title">Quem sabe um Netflix?</h3>
+        </div>
+        <div class="box-body">
+          <p>A previsão para o final de semana é de uma temperatura máxima média de:</p>
+          <span class="max-temp big center-block text-center">
+            <i class="glyphicon glyphicon-arrow-up text-red"></i>
+            {{main.beach.value}} ºC
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-4" ng-if="main.beach.is && main.beach">
+      <div class="box box-image box-image-beach">
+        <div class="box-header with-border">
+          <h3 class="box-title">Vai dar praia!</h3>
+        </div>
+        <div class="box-body">
+          <p>As previsões indicam que a temperatura máxima média é de:</p>
+          <span class="max-temp big center-block text-center">
+            <i class="glyphicon glyphicon-arrow-up text-red"></i>
+            {{main.beach.value}} ºC
+          </span>
         </div>
       </div>
     </div>

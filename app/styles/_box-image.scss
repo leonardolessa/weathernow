@@ -1,0 +1,28 @@
+.box-image {
+  // -webkit-background-size: cover;
+  // -moz-background-size: cover;
+  // -o-background-size: cover;
+  // background-size: cover;
+}
+
+.box-image-beach {
+  background:
+     /* top, transparent white, faked with gradient */
+     linear-gradient(
+       rgba(255, 255, 255, 0.70),
+       rgba(255, 255, 255, 0.70)
+     ),
+     /* bottom, image */
+     url(../images/pexels-photo-large.jpeg) no-repeat center center;
+}
+
+.box-image-home {
+  background:
+     /* top, transparent white, faked with gradient */
+     linear-gradient(
+       rgba(255, 255, 255, 0.70),
+       rgba(255, 255, 255, 0.70)
+     ),
+     /* bottom, image */
+     url(../images/living-room.jpg) no-repeat center center;
+}

@@ -14,7 +14,7 @@ angular.module('weatherApp')
     var service = {
       info: info,
       states: states
-    }
+    };
 
     function info(state, city) {
       var deferred = $q.defer();

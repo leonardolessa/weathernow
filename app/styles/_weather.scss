@@ -1,13 +1,6 @@
-.box-weather-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  item-align: stretch;
 
-  &:before, &:after {
-    content:" ";
-    display: table;
-    width: 0; /* Fix for Google Chrome */
-  }
+.box-weather-wrapper {
+  @extend .box-flex;
 
   .box-header {
     min-height: 85px;
@@ -16,19 +9,14 @@
     text-align: center;
   }
 
-  @media (max-width: $screen-desktop) {
-    display: block;
+  .box {
+    border-radius: 0;
   }
 }
+
 .box-weather {
   min-height: 300px;
-  display: flex;
 }
-
-.box {
-  border-radius: 0;
-}
-
 
 .box-date {
   margin-bottom: 0;
@@ -41,6 +29,10 @@
 
   .glyphicon {
     font-size: 15px;
+  }
+
+  &.big {
+    font-size: 32px;
   }
 }
 

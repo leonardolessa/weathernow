@@ -15,6 +15,7 @@ angular.module('weatherApp')
     main.getInfo = getInfo;
     main.currentCity = 'Blumenau';
     main.currentState = 'SC';
+    main.beachAverage = 25;
 
     getStates();
 
@@ -53,15 +54,33 @@ angular.module('weatherApp')
 
     function getMinMax(data) {
       main.min = data.previsoes.reduce(function(prev, curr) {
-        return prev.temperatura_min < curr.temperatura_min ? prev : curr;
+        return prev.temperatura_min <= curr.temperatura_min ? prev : curr;
       });
 
       main.max = data.previsoes.reduce(function(prev, curr) {
-        return prev.temperatura_max > curr.temperatura_max ? prev : curr;
+        return prev.temperatura_max >= curr.temperatura_max ? prev : curr;
       });
     }
 
     function getWeekend(data) {
+      var pattern = /^(Domingo|Sábado)/;
+      var weekend = data.previsoes.filter(function(el) {
+        return pattern.test(el.data);
+      });
+      var len = weekend.length;
+      var sum = 0;
 
+      if (len < 1) {
+        return;
+      }
+
+      for (var i = 0; i < len; i++) {
+        sum += weekend[i].temperatura_max;
+      }
+
+      main.beach = {
+        is: sum / len > main.beachAverage,
+        value: sum / len
+      };
     }
   });
