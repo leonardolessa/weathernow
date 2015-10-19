@@ -20,6 +20,8 @@
                     <option value="">Selecione o seu estado</option>
             </select>
 
+            {{main.currentState}}
+
             <select chosen
                     ng-model="main.currentCity"
                     ng-options="city as city for city in main.activeState.cities track by city">
@@ -84,11 +86,34 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-xs-12 col-md-3">
+  {{main.max}}
+  <div class="row" ng-show="main.max && main.min">
+    <div class="col-xs-12 col-md-4">
       <div class="box">
-        {{main.min}}
-        {{main.max}}
+        <div class="box-header with-border">
+          <h3 class="box-title">Mínima e Máxima</h3>
+          <p>Em {{main.forecast.cidade}}</p>
+        </div>
+        <div class="box-body">
+          <div class="row">
+            <div class="col-xs-6 text-center">
+              <p>{{main.min.data}}</p>
+              <img ng-src="{{main.min.imagem}}" alt="">
+              <span class="min-temp">
+                <i class="glyphicon glyphicon-arrow-down text-light-blue"></i>
+                {{main.min.temperatura_min}} ºC
+              </span>
+            </div>
+            <div class="col-xs-6 text-center">
+              <p>{{main.max.data}}</p>
+              <img ng-src="{{main.max.imagem}}" alt="">
+              <span class="max-temp">
+                <i class="glyphicon glyphicon-arrow-up text-red"></i>
+                {{main.max.temperatura_max}} ºC
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

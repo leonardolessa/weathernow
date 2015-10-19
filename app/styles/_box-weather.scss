@@ -9,43 +9,43 @@
     width: 0; /* Fix for Google Chrome */
   }
 
-  .box-weather {
-    min-height: 300px;
-    display: flex;
-  }
-
-  .box {
-    border-radius: 0;
-  }
-
   .box-header {
     min-height: 85px;
   }
-
-  .box-date {
-    margin-bottom: 0;
-  }
-
   .box-body {
     text-align: center;
-  }
-
-  .min-temp, .max-temp {
-    display: block;
-    font-size: 20px;
-
-    .glyphicon {
-      font-size: 15px;
-    }
-  }
-
-  .max-and-min, .temp-now {
-    margin-right: 10px;
-    display: inline-block;
-    vertical-align: middle;
   }
 
   @media (max-width: $screen-desktop) {
     display: block;
   }
+}
+.box-weather {
+  min-height: 300px;
+  display: flex;
+}
+
+.box {
+  border-radius: 0;
+}
+
+
+.box-date {
+  margin-bottom: 0;
+}
+
+
+.min-temp, .max-temp {
+  display: block;
+  font-size: 20px;
+
+  .glyphicon {
+    font-size: 15px;
+  }
+}
+
+.max-and-min, .temp-now {
+  margin-right: 10px;
+  display: inline-block;
+  vertical-align: middle;
 }
