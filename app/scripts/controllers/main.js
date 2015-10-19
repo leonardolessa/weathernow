@@ -61,7 +61,7 @@ angular.module('weatherApp')
             //get chart widget data
             main.chart = Weather.chart(data.previsoes);
           }, function(err) {
-            console.log(err);
+
           });
     }
 
