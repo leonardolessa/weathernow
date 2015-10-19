@@ -12,7 +12,8 @@ angular
   .module('weatherApp', [
     'ngResource',
     'ngRoute',
-    'localytics.directives'
+    'localytics.directives',
+    'LocalStorageModule'
   ])
   .config(function ($routeProvider) {
     $routeProvider

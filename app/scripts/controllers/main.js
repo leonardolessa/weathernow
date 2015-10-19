@@ -12,15 +12,14 @@ angular.module('weatherApp')
     var main = this;
 
     main.setState = setState;
-    main.getInfo = getInfo;
-    main.currentCity = 'Blumenau';
-    main.currentState = 'SC';
-    main.beachAverage = 25;
+    main.getForecast = getForecast;
+    main.toggleStorage = toggleStorage;
 
+    getDefaultOptions();
     getStates();
 
     function setState(value) {
-      var initials = value ? value : main.currentState;
+      var initials = value ? value : main.location.state;
       var len = main.states.length;
 
       for(var i = 0; i < len; i++) {
@@ -30,57 +29,43 @@ angular.module('weatherApp')
       }
     }
 
+    function getDefaultOptions() {
+      main.location = Weather.defaultOptions();
+    }
+
     function getStates() {
       Weather.states().then(function(response) {
         var data = response.data;
         main.states = data.states;
-        setState(main.currentState.initials);
-        getInfo();
+        setState(main.location.state);
+        getForecast();
       });
       //should threat exceptions with the promise
 
     }
 
-    function getInfo(data) {
-        Weather.info(main.currentState, main.currentCity)
+    function getForecast(data) {
+        main.location.remember = Weather.checkData(main.location);
+
+        if (!main.location.city) {
+          return;
+        }
+
+        Weather.forecast(main.location.state, main.location.city)
           .then(function(data) {
             main.forecast = data;
-            getMinMax(data);
-            getWeekend(data);
+            //get minMax widget data
+            main.minMax = Weather.minMax(data.previsoes);
+            //get weekend widget data
+            main.weekend = Weather.weekend(data.previsoes);
+            //get chart widget data
+            main.chart = Weather.chart(data.previsoes);
           }, function(err) {
             console.log(err);
           });
     }
 
-    function getMinMax(data) {
-      main.min = data.previsoes.reduce(function(prev, curr) {
-        return prev.temperatura_min <= curr.temperatura_min ? prev : curr;
-      });
-
-      main.max = data.previsoes.reduce(function(prev, curr) {
-        return prev.temperatura_max >= curr.temperatura_max ? prev : curr;
-      });
-    }
-
-    function getWeekend(data) {
-      var pattern = /^(Domingo|Sábado)/;
-      var weekend = data.previsoes.filter(function(el) {
-        return pattern.test(el.data);
-      });
-      var len = weekend.length;
-      var sum = 0;
-
-      if (len < 1) {
-        return;
-      }
-
-      for (var i = 0; i < len; i++) {
-        sum += weekend[i].temperatura_max;
-      }
-
-      main.beach = {
-        is: sum / len > main.beachAverage,
-        value: sum / len
-      };
+    function toggleStorage(remember) {
+      Weather.toggle(main.location, remember);
     }
   });

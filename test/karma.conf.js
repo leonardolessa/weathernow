@@ -30,6 +30,11 @@ module.exports = function(config) {
       'bower_components/AdminLTE/dist/js/app.js',
       'bower_components/chosen/chosen.jquery.min.js',
       'bower_components/angular-chosen-localytics/chosen.js',
+      'bower_components/raphael/raphael.js',
+      'bower_components/mocha/mocha.js',
+      'bower_components/morris.js/morris.js',
+      'bower_components/angular-morris-chart/src/angular-morris-chart.min.js',
+      'bower_components/angular-local-storage/dist/angular-local-storage.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

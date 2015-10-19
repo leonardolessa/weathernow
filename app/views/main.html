@@ -14,21 +14,19 @@
       <div class="row">
         <div class="col-md-6">
             <select chosen
-                    ng-model="main.currentState"
+                    ng-model="main.location.state"
                     ng-options="state.initials as state.name for state in main.states"
-                    ng-change="main.setState(main.currentState)">
+                    ng-change="main.setState(main.location.state)">
                     <option value="">Selecione o seu estado</option>
             </select>
 
             <select chosen
-                    ng-model="main.currentCity"
-                    ng-options="city as city for city in main.activeState.cities track by city">
+                    ng-model="main.location.city"
+                    ng-options="city as city for city in main.activeState.cities track by city" ng-change="main.getForecast()">
                     <option value="">Selecione a sua cidade</option>
             </select>
 
-            <input type="checkbox" id=""> Lembrar
-
-            <button class="btn btn-primary pull-right" ng-disabled="!main.currentState || !main.currentCity" ng-click="main.getInfo()">Enviar</button>
+            <input type="checkbox" ng-model="main.location.remember" ng-value="remember" ng-change="main.toggleStorage(main.location.remember)" /> Lembrar
         </div>
       </div>
 
@@ -86,7 +84,7 @@
   </div>
 
   <div class="row box-flex">
-    <div ng-show="main.max && main.min" class="col-xs-12 col-md-4">
+    <div ng-show="main.minMax.max && main.minMax.min" class="col-xs-12 col-md-4">
       <div class="box">
         <div class="box-header with-border">
           <h3 class="box-title">Mínima e Máxima</h3>
@@ -95,51 +93,68 @@
         <div class="box-body">
           <div class="row">
             <div class="col-xs-6 text-center">
-              <p>{{main.min.data}}</p>
-              <img ng-src="{{main.min.imagem}}" alt="">
+              <p>{{main.minMax.min.data}}</p>
+              <img ng-src="{{main.minMax.min.imagem}}" alt="">
               <span class="min-temp">
                 <i class="glyphicon glyphicon-arrow-down text-light-blue"></i>
-                {{main.min.temperatura_min}} ºC
+                {{main.minMax.min.temperatura_min}} ºC
               </span>
             </div>
             <div class="col-xs-6 text-center">
-              <p>{{main.max.data}}</p>
-              <img ng-src="{{main.max.imagem}}" alt="">
+              <p>{{main.minMax.max.data}}</p>
+              <img ng-src="{{main.minMax.max.imagem}}" alt="">
               <span class="max-temp">
                 <i class="glyphicon glyphicon-arrow-up text-red"></i>
-                {{main.max.temperatura_max}} ºC
+                {{main.minMax.max.temperatura_max}} ºC
               </span>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-md-4" ng-if="!main.beach.is && main.beach">
+    <div class="col-xs-12 col-md-4" ng-if="!main.weekend.is && main.weekend">
       <div class="box box-image box-image-home">
-        <div class="box-header with-border">
+        <div class="box-header">
           <h3 class="box-title">Quem sabe um Netflix?</h3>
         </div>
         <div class="box-body">
           <p>A previsão para o final de semana é de uma temperatura máxima média de:</p>
           <span class="max-temp big center-block text-center">
             <i class="glyphicon glyphicon-arrow-up text-red"></i>
-            {{main.beach.value}} ºC
+            {{main.weekend.value}} ºC
           </span>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-md-4" ng-if="main.beach.is && main.beach">
+    <div class="col-xs-12 col-md-4" ng-if="main.weekend.is && main.weekend">
       <div class="box box-image box-image-beach">
-        <div class="box-header with-border">
+        <div class="box-header">
           <h3 class="box-title">Vai dar praia!</h3>
         </div>
         <div class="box-body">
           <p>As previsões indicam que a temperatura máxima média é de:</p>
           <span class="max-temp big center-block text-center">
             <i class="glyphicon glyphicon-arrow-up text-red"></i>
-            {{main.beach.value}} ºC
+            {{main.weekend.value}} ºC
           </span>
         </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-4" ng-if="main.chart">
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Variação da Temperatura</h3>
+        </div>
+        <div class="box-body box-chart">
+          <div
+            class="line-chart"
+            line-chart
+            line-data='main.chart'
+            line-xkey="data"
+            line-ykeys="['max', 'min']"
+            line-labels="['Temperatura Máxima', 'Temperatura Mínima']"
+            line-colors="['#DD4B39', '#3C8DBC']">
+          </div>
       </div>
     </div>
   </div>
