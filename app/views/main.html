@@ -12,21 +12,25 @@
     </div>
     <div class="box-body">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-lg-3 col-sm-4 col-xs-12">
             <select chosen
+                    class="form-control chosen-select"
                     ng-model="main.location.state"
                     ng-options="state.initials as state.name for state in main.states"
                     ng-change="main.setState(main.location.state)">
                     <option value="">Selecione o seu estado</option>
             </select>
-
-            <select chosen
-                    ng-model="main.location.city"
-                    ng-options="city as city for city in main.activeState.cities track by city" ng-change="main.getForecast()">
-                    <option value="">Selecione a sua cidade</option>
-            </select>
-
-            <input type="checkbox" ng-disabled="main.error" ng-model="main.location.remember" ng-value="remember" ng-change="main.toggleStorage(main.location.remember)" /> Lembrar
+        </div>
+        <div class="col-lg-3 col-sm-4 col-xs-12">
+          <select chosen
+                  class="form-control"
+                  ng-model="main.location.city"
+                  ng-options="city as city for city in main.activeState.cities track by city" ng-change="main.getForecast()">
+                  <option value="">Selecione a sua cidade</option>
+          </select>
+        </div>
+        <div class="col-md-4 col-xs-12">
+          <input type="checkbox" ng-disabled="main.error" ng-model="main.location.remember" ng-value="remember" ng-change="main.toggleStorage(main.location.remember)" /> Lembrar
         </div>
       </div>
 
@@ -127,7 +131,7 @@
         </div>
         <div class="box-body">
           <p>A previsão para o final de semana é de uma temperatura máxima média de:</p>
-          <span class="max-temp big center-block text-center">
+          <span class="min-temp weekend big center-block text-center">
             <i class="glyphicon glyphicon-arrow-up text-red"></i>
             {{main.weekend.value}} ºC
           </span>
@@ -141,7 +145,7 @@
         </div>
         <div class="box-body">
           <p>As previsões indicam que a temperatura máxima média é de:</p>
-          <span class="max-temp big center-block text-center">
+          <span class="max-temp weekend big center-block text-center">
             <i class="glyphicon glyphicon-arrow-up text-red"></i>
             {{main.weekend.value}} ºC
           </span>
