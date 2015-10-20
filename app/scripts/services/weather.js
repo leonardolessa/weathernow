@@ -101,7 +101,7 @@ angular.module('weatherApp')
       }
 
       for (var i = 0; i < len; i++) {
-        sum += weekend[i].temperatura_max;
+        sum += parseInt(weekend[i].temperatura_max);
       }
 
       return {
