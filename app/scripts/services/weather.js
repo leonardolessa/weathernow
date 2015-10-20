@@ -59,7 +59,11 @@ angular.module('weatherApp')
 
 
     function forecast(state, city) {
-      if (localStorageService.get('city') == city) {
+      var expire = localStorageService.get('expire');
+      var now = new Date().getTime();
+      var time = now - expire;
+
+      if (localStorageService.get('city') == city && time < 1200000) {
         return _getInternal();
       }
       return _getExternal(state, city);
@@ -128,8 +132,9 @@ angular.module('weatherApp')
         localStorageService.set('resultData', result);
         localStorageService.set('city', location.city);
         localStorageService.set('state', location.state);
+        localStorageService.set('expire', new Date().getTime())
       } else {
-        localStorageService.remove('resultData', 'city', 'state');
+        localStorageService.remove('resultData', 'city', 'state', 'expire');
       }
     }
 
