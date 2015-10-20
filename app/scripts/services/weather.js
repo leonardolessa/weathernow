@@ -117,7 +117,6 @@ angular.module('weatherApp')
         var day = date.getDate();
         var month = date.getMonth() + 1;
         var year = date.getFullYear();
-        //morris receives YYYY-MM-DD
 
         return {
           data: year + '-' + month + '-' + day,
