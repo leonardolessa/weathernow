@@ -1,0 +1,14 @@
+.container-all {
+  position: relative;
+}
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+.line-chart {
+  min-height: 220px;
+}

@@ -34,14 +34,18 @@
   &.big {
     font-size: 32px;
   }
+
+  &.weekend {
+    margin-top: 40px;
+    font-size: 40px;
+    .glyphicon {
+      font-size: 23px;
+    }
+  }
 }
 
 .max-and-min, .temp-now {
   margin-right: 10px;
   display: inline-block;
   vertical-align: middle;
-}
-
-.line-chart {
-  min-height: 230px;
 }
